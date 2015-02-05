@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Suite]" parallel="none">
+  <parameter name="browserName" value="Firefox"/>
+  <test name="Test(failed)" parallel="none">
+    <classes>
+      <class name="functional_test.ImdbTop50Test">
+        <methods>
+          <include name="openBrowser"/>
+          <include name="closeBrowser"/>
+          <include name="genericFlow"/>
+        </methods>
+      </class> <!-- functional_test.ImdbTop50Test -->
+    </classes>
+  </test> <!-- Test(failed) -->
+</suite> <!-- Failed suite [Suite] -->
