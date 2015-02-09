@@ -24,6 +24,7 @@ import org.testng.annotations.Test;
 public class Setup {
 
 	public static WebDriver driver = null;
+	public static String sample="";
 	
 //	@BeforeSuite
 //	@Parameters({"browserName"})
