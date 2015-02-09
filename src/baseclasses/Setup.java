@@ -2,6 +2,7 @@ package baseclasses;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
@@ -58,7 +59,15 @@ public class Setup {
 	    String title = map.get("name");
 	    String release = map.get("year");
 	    String rating =map.get("rating");
-	    
+	    if (title.contains("'")){
+	    	title= title.replace("'", "''");
+	    }
+	    if (release.contains("'")){
+	    	release = release.replace("'", "''");
+	    }
+	    if (rating.contains("'")){
+	    	rating.replace("\'", "\'\'");
+	    }
 	    //static  int count =1;
 	    try {
 	      Class.forName("org.sqlite.JDBC");
@@ -67,7 +76,7 @@ public class Setup {
 	      System.out.println("Opened database successfully "+c.toString());
 	      
 	      stmt = c.createStatement();
-	      String sql = "CREATE TABLE IF NOT EXISTS imdbRating "   +
+	      String sql = "CREATE TABLE IF NOT EXISTS imdbRating5 "   +
 	                   "(ID INTEGER PRIMARY KEY AUTOINCREMENT,"  +
 	                   " TITLE           TEXT    NOT NULL," + 
 	                   " RELEASE         TEXT    NOT NULL," + 
@@ -81,11 +90,23 @@ public class Setup {
 	      System.out.println("INSERT INTO imdb (TITLE,RELEASE,RATING) " +
 		    		 "VALUES ('" + title + "','" + release + "','" + rating + "');");
 	      
-	      sql = "INSERT INTO imdbRating (TITLE,RELEASE,RATING) " +
+	      sql = "INSERT INTO imdbRating5 (TITLE,RELEASE,RATING) " +
 		    		 "VALUES ('" + title + "','" + release + "','" + rating + "');";  
 	     
         stmt.executeUpdate(sql);
-   
+        
+//		   sql = ".mode csv";
+//		   stmt.executeUpdate(sql);
+//		   
+//		   sql = " .output test1.csv";
+//		   stmt.executeUpdate(sql);
+//		   
+//		   sql = "select * from imdbRating1	;";
+//		   stmt.executeUpdate(sql);
+//		   
+//		   sql = " .output stdout";
+//		   stmt.executeUpdate(sql);
+//		   
 	      stmt.close();
 	      c.close();
 	      
@@ -97,6 +118,7 @@ public class Setup {
 	  }
 
 	
+	  
 //	@AfterSuite
 //	public void closeBrowser()
 //	{

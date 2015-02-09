@@ -23,6 +23,7 @@ public class ImdbTop50Test extends Setup{
 //			imdb.getReleaseYear();
 //			imdb.getMovieRating();
 			imdb.storeValueinList();
+			imdb.printFile();
 			
 		}
 }
