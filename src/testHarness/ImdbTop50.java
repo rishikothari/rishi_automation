@@ -20,13 +20,19 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import com.thoughtworks.selenium.Wait;
 
 import baseclasses.Setup;
+import baseclasses.WrapperFunctions;
 import ObjectRepository.ObjectRepository;
 
-public class ImdbTop50 extends Setup {
+public class ImdbTop50 extends Setup{
 
-	WebDriver driver = new FirefoxDriver();
-
-	// WebDriver driver = Setup.driver;
+	//WebDriver driver = new FirefoxDriver();
+	WrapperFunctions wrap;
+	WebDriver driver;
+	
+	public ImdbTop50() {
+		super();
+		this.driver = Setup.driver;;
+	}
 
 	public void waitForPageToLoad() {
 		driver.manage().timeouts().pageLoadTimeout(300, TimeUnit.SECONDS);
@@ -60,7 +66,7 @@ public class ImdbTop50 extends Setup {
 	}
 
 	public void getReleaseYear() {
-		// driver.findElement(By.xpath(ObjectRepository.ImdbElements.movieTitle)).getText();
+
 		for (int i = 1; i <= 4; i++) {
 			System.out.println(driver.findElement(
 					By.xpath(ObjectRepository.ImdbElements.releaseYear.replace(
@@ -69,7 +75,7 @@ public class ImdbTop50 extends Setup {
 	}
 
 	public void getMovieRating() {
-		// driver.findElement(By.xpath(ObjectRepository.ImdbElements.movieTitle)).getText();
+
 		for (int i = 1; i <= 4; i++) {
 			System.out.println(driver.findElement(
 					By.xpath(ObjectRepository.ImdbElements.movieRating.replace(
@@ -80,11 +86,15 @@ public class ImdbTop50 extends Setup {
 	public void storeValueinList() {
 		HashMap<String, String> map = new HashMap<String, String>();
 		for (int i = 1; i < 250; i++) {
-			map.put("name",
-					driver.findElement(
-							By.xpath(ObjectRepository.ImdbElements.movieTitle
-									.replace("rowNum", Integer.toString(i))))
-							.getText());
+//			map.put("name",
+//					driver.findElement(
+//							By.xpath(ObjectRepository.ImdbElements.movieTitle
+//									.replace("rowNum", Integer.toString(i))))
+//							.getText());
+		map.put("name", wrap.findWebElement(ObjectRepository.ImdbElements.movieTitle
+				.replace("rowNum", Integer.toString(i)), "xpath").getText()); 
+		
+		
 			map.put("year",
 					driver.findElement(
 							By.xpath(ObjectRepository.ImdbElements.releaseYear
@@ -97,7 +107,6 @@ public class ImdbTop50 extends Setup {
 							.getText());
 			databaseInsert(map);
 		}
-		// System.out.println(map.);
 	}
 
 	public void printFile() {
@@ -108,9 +117,7 @@ public class ImdbTop50 extends Setup {
 	}
 
 	public void printFileFromDB() {
-
-		// Map<String, String> outputMap = new HashMap<String, String>();
-
+		
 		Connection c = null;
 		Statement stmt = null;
 		BufferedWriter bw = null;
@@ -130,11 +137,6 @@ public class ImdbTop50 extends Setup {
 
 		}
 
-		// String title = outputMap.get("name");
-		// String release = outputMap.get("year");
-		// String rating =outputMap.get("rating");
-
-		// static int count =1;g
 		try {
 			Class.forName("org.sqlite.JDBC");
 			c = DriverManager.getConnection("jdbc:sqlite:test4.db");
@@ -146,7 +148,7 @@ public class ImdbTop50 extends Setup {
 			String sql = "Select * from imdbrating5;";
 
 			ResultSet rs = stmt.executeQuery(sql);
-
+		
 			while (rs.next()) {
 
 				System.out.println("Name= " + rs.getString(1));
@@ -154,13 +156,6 @@ public class ImdbTop50 extends Setup {
 				System.out.println("Name3= " + rs.getString(3));
 				System.out.println("Name3= " + rs.getString(4));
 
-				// outputMap.put("name", rs.getString(2));
-				// outputMap.put("year",rs.getString(3) );
-				// outputMap.put("rating",rs.getString(4) );
-
-				// String outputName = rs.getString(2);
-				// String outputYear = rs.getString(3);
-				// String outputRating = rs.getString(4);
 				String fileOutput = rs.getString(1) + "  " + rs.getString(2)
 						+ "  " + "  " + rs.getString(3) + "  "
 						+ rs.getString(4) + "\n";

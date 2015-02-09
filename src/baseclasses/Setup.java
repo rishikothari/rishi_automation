@@ -24,105 +24,92 @@ import org.testng.annotations.Test;
 public class Setup {
 
 	public static WebDriver driver = null;
-	public static String sample="";
-	
-//	@BeforeSuite
-//	@Parameters({"browserName"})
-//	public void openBrowser( String browserName)
-//	{
-//		System.out.println(browserName);
-//		
-//		if (browserName.equals("Firefox"))
-//		{
-//			driver = new FirefoxDriver();
-//		}
-//		else
-//			if (browserName.equals("chrome")) 
-//			{
-//				driver = new ChromeDriver();
-//			}
-//			else 
-//				if (browserName == "safari")
-//			{
-//				driver = new SafariDriver();
-//			}
-//	}
-	
-	  public   void databaseInsert (HashMap<String, String> map)
-	  {
-//		 HashMap<String,String> map1 = new HashMap<String, String>();
-	
-		
-		 
-	    Connection c = null;
-	    Statement stmt = null;
-	  
-	    String title = map.get("name");
-	    String release = map.get("year");
-	    String rating =map.get("rating");
-	    if (title.contains("'")){
-	    	title= title.replace("'", "''");
-	    }
-	    if (release.contains("'")){
-	    	release = release.replace("'", "''");
-	    }
-	    if (rating.contains("'")){
-	    	rating.replace("\'", "\'\'");
-	    }
-	    //static  int count =1;
-	    try {
-	      Class.forName("org.sqlite.JDBC");
-	      c = DriverManager.getConnection("jdbc:sqlite:test4.db");
-	      //c.setAutoCommit(false);
-	      System.out.println("Opened database successfully "+c.toString());
-	      
-	      stmt = c.createStatement();
-	      String sql = "CREATE TABLE IF NOT EXISTS imdbRating5 "   +
-	                   "(ID INTEGER PRIMARY KEY AUTOINCREMENT,"  +
-	                   " TITLE           TEXT    NOT NULL," + 
-	                   " RELEASE         TEXT    NOT NULL," + 
-	                   " RATING          TEXT    NOT NULL)" ; 
+	public static String sample = "";
 
-	      
-	      
-	      stmt.executeUpdate(sql);
-	      
-	      
-	      System.out.println("INSERT INTO imdb (TITLE,RELEASE,RATING) " +
-		    		 "VALUES ('" + title + "','" + release + "','" + rating + "');");
-	      
-	      sql = "INSERT INTO imdbRating5 (TITLE,RELEASE,RATING) " +
-		    		 "VALUES ('" + title + "','" + release + "','" + rating + "');";  
-	     
-        stmt.executeUpdate(sql);
-        
-//		   sql = ".mode csv";
-//		   stmt.executeUpdate(sql);
-//		   
-//		   sql = " .output test1.csv";
-//		   stmt.executeUpdate(sql);
-//		   
-//		   sql = "select * from imdbRating1	;";
-//		   stmt.executeUpdate(sql);
-//		   
-//		   sql = " .output stdout";
-//		   stmt.executeUpdate(sql);
-//		   
-	      stmt.close();
-	      c.close();
-	      
-	    } catch ( Exception e ) {
-	      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-	      System.exit(0);
-	    }
-	    System.out.println("Table created successfully");
-	  }
+	// @BeforeSuite
+	// @Parameters({"browserName"})
+	// public void openBrowser( String browserName)
+	// {
+	// System.out.println(browserName);
+	//
+	// if (browserName.equals("Firefox"))
+	// {
+	// driver = new FirefoxDriver();
+	// }
+	// else
+	// if (browserName.equals("chrome"))
+	// {
+	// driver = new ChromeDriver();
+	// }
+	// else
+	// if (browserName == "safari")
+	// {
+	// driver = new SafariDriver();
+	// }
+	// }
 
+	@BeforeSuite
+	public void setup(){
+		driver = new FirefoxDriver();
+	}
 	
-	  
-//	@AfterSuite
-//	public void closeBrowser()
-//	{
-//		driver.quit();
-//	}
+	public void databaseInsert(HashMap<String, String> map) {
+		// HashMap<String,String> map1 = new HashMap<String, String>();
+
+		Connection c = null;
+		Statement stmt = null;
+
+		String title = map.get("name");
+		String release = map.get("year");
+		String rating = map.get("rating");
+		if (title.contains("'")) {
+			title = title.replace("'", "''");
+		}
+		if (release.contains("'")) {
+			release = release.replace("'", "''");
+		}
+		if (rating.contains("'")) {
+			rating.replace("\'", "\'\'");
+		}
+		// static int count =1;
+		try {
+			Class.forName("org.sqlite.JDBC");
+			c = DriverManager.getConnection("jdbc:sqlite:test5.db");
+			// c.setAutoCommit(false);
+			System.out.println("Opened database successfully " + c.toString());
+
+			stmt = c.createStatement();
+			String sql = "CREATE TABLE IF NOT EXISTS imdbRating5 "
+					+ "(ID INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ " TITLE           TEXT    NOT NULL,"
+					+ " RELEASE         TEXT    NOT NULL,"
+					+ " RATING          TEXT    NOT NULL)";
+
+			stmt.executeUpdate(sql);
+
+			System.out.println("INSERT INTO imdb (TITLE,RELEASE,RATING) "
+					+ "VALUES ('" + title + "','" + release + "','" + rating
+					+ "');");
+
+			sql = "INSERT INTO imdbRating5 (TITLE,RELEASE,RATING) "
+					+ "VALUES ('" + title + "','" + release + "','" + rating
+					+ "');";
+
+			stmt.executeUpdate(sql);
+
+			stmt.close();
+			c.close();
+
+		} catch (Exception e) {
+			System.err.println(e.getClass().getName() + ": " + e.getMessage());
+			System.exit(0);
+		}
+		System.out.println("Table created successfully");
+	}
+
+	 @AfterSuite
+	 public void closeBrowser()
+	 {
+	 driver.quit();
+	 }
 }
