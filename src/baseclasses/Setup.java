@@ -1,5 +1,6 @@
 package baseclasses;
 
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -7,6 +8,7 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
@@ -14,6 +16,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
@@ -26,7 +31,7 @@ public class Setup {
 	 protected static WebDriver driver;
 	 
 	 
-	 
+//	 
 	 @Parameters({"browserName"})
 	 @BeforeSuite
 	 public void openBrowser( String browserName)
@@ -40,12 +45,14 @@ public class Setup {
 	 else
 	 if (browserName.equals("chrome"))
 	 {
+		 System.setProperty("webdriver.chrome.driver", "/Users/RishikeshKotahri/Documents/workspace/imdb_top250");
 	 driver = new ChromeDriver();
 	 }
 	 else
-	 if (browserName == "safari")
-	 {
-	 driver = new SafariDriver();
+	 if (browserName.equals("safari"))
+	 {		 
+		 	
+			driver = new SafariDriver();
 	 }
 	 }
 
@@ -53,7 +60,7 @@ public class Setup {
 //	public void setup(){
 //		driver = new FirefoxDriver();
 //	}
-	
+//	
 	public void databaseInsert(HashMap<String, String> map) {
 
 		Connection c = null;
