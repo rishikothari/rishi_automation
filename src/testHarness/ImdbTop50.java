@@ -23,20 +23,9 @@ import baseclasses.Setup;
 import baseclasses.WrapperFunctions;
 import ObjectRepository.ObjectRepository;
 
-public class ImdbTop50 extends Setup{
+public class ImdbTop50 extends WrapperFunctions {
 
-	//WebDriver driver = new FirefoxDriver();
-	WrapperFunctions wrap;
-	WebDriver driver;
-	
-	public ImdbTop50() {
-		super();
-		this.driver = Setup.driver;;
-	}
-
-	public void waitForPageToLoad() {
-		driver.manage().timeouts().pageLoadTimeout(300, TimeUnit.SECONDS);
-	}
+	protected WrapperFunctions wrap=new WrapperFunctions();
 
 	public void navigateToHomePage() {
 
@@ -45,66 +34,58 @@ public class ImdbTop50 extends Setup{
 	}
 
 	public void clickOnWatchlist() {
-		driver.findElement(By.xpath((ObjectRepository.ImdbElements.watchList)))
-				.click();
+		wrap.clickElement(ObjectRepository.ImdbElements.watchList, "xpath");
 		waitForPageToLoad();
 	}
 
 	public void clickOnTop250Link() {
-		driver.findElement(By.xpath((ObjectRepository.ImdbElements.top250Link)))
-				.click();
-		// waitForPageToLoad();
+		 wrap.clickElement(ObjectRepository.ImdbElements.top250Link, "xpath");
+		 waitForPageToLoad();
 	}
 
 	public void getMovieTitle() {
-		// driver.findElement(By.xpath(ObjectRepository.ImdbElements.movieTitle)).getText();
-		for (int i = 1; i <= 4; i++) {
-			System.out.println(driver.findElement(
-					By.xpath(ObjectRepository.ImdbElements.movieTitle.replace(
-							"rowNum", Integer.toString(i)))).getText());
+	
+		for (int row = 1; row <= 250; row++) {
+			System.out.println(wrap.findWebElement(ObjectRepository.ImdbElements.movieTitle.replace("rowNum", Integer.toString(row)), "xpath").getText());
+
 		}
 	}
 
 	public void getReleaseYear() {
 
-		for (int i = 1; i <= 4; i++) {
-			System.out.println(driver.findElement(
-					By.xpath(ObjectRepository.ImdbElements.releaseYear.replace(
-							"rowNum", Integer.toString(i)))).getText());
+		for (int row = 1; row <= 250; row++) {
+			System.out.println(wrap.findWebElement(ObjectRepository.ImdbElements.releaseYear.replace("rowNum", Integer.toString(row)), "xpath").getText());
 		}
 	}
 
 	public void getMovieRating() {
 
-		for (int i = 1; i <= 4; i++) {
-			System.out.println(driver.findElement(
-					By.xpath(ObjectRepository.ImdbElements.movieRating.replace(
-							"rowNum", Integer.toString(i)))).getText());
-		}
+		for (int row = 1; row <= 250; row++) {
+			System.out.println(wrap.findWebElement(ObjectRepository.ImdbElements.movieRating.replace("rowNum", Integer.toString(row)), "xpath").getText());
+		}		
 	}
 
 	public void storeValueinList() {
+		
 		HashMap<String, String> map = new HashMap<String, String>();
-		for (int i = 1; i < 250; i++) {
-//			map.put("name",
-//					driver.findElement(
-//							By.xpath(ObjectRepository.ImdbElements.movieTitle
-//									.replace("rowNum", Integer.toString(i))))
-//							.getText());
-		map.put("name", wrap.findWebElement(ObjectRepository.ImdbElements.movieTitle
-				.replace("rowNum", Integer.toString(i)), "xpath").getText()); 
-		
-		
+		for (int row = 1; row <= 250; row++) {
+
+			map.put("name",
+					wrap.findWebElement(
+							ObjectRepository.ImdbElements.movieTitle.replace(
+									"rowNum", Integer.toString(row)), "xpath")
+							.getText());
 			map.put("year",
-					driver.findElement(
-							By.xpath(ObjectRepository.ImdbElements.releaseYear
-									.replace("rowNum", Integer.toString(i))))
+					wrap.findWebElement(
+							ObjectRepository.ImdbElements.releaseYear.replace(
+									"rowNum", Integer.toString(row)), "xpath")
 							.getText());
 			map.put("rating",
-					driver.findElement(
-							By.xpath(ObjectRepository.ImdbElements.movieRating
-									.replace("rowNum", Integer.toString(i))))
+					wrap.findWebElement(
+							ObjectRepository.ImdbElements.movieRating.replace(
+									"rowNum", Integer.toString(row)), "xpath")
 							.getText());
+
 			databaseInsert(map);
 		}
 	}
@@ -117,14 +98,14 @@ public class ImdbTop50 extends Setup{
 	}
 
 	public void printFileFromDB() {
-		
+
 		Connection c = null;
 		Statement stmt = null;
 		BufferedWriter bw = null;
 		FileWriter fw;
 
 		try {
-			File file = new File("filename3.txt");
+			File file = new File("filename4.txt");
 
 			// if file doesnt exists, then create it
 			if (!file.exists()) {
@@ -148,7 +129,7 @@ public class ImdbTop50 extends Setup{
 			String sql = "Select * from imdbrating5;";
 
 			ResultSet rs = stmt.executeQuery(sql);
-		
+
 			while (rs.next()) {
 
 				System.out.println("Name= " + rs.getString(1));

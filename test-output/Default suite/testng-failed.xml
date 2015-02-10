@@ -5,9 +5,7 @@
     <classes>
       <class name="functional_test.ImdbTop50Test">
         <methods>
-          <include name="closeBrowser"/>
-          <include name="setup"/>
-          <include name="genericFlow"/>
+          <include name="getMovieListing"/>
         </methods>
       </class> <!-- functional_test.ImdbTop50Test -->
     </classes>

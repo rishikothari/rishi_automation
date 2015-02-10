@@ -11,12 +11,12 @@ import baseclasses.Setup;
 
 
 
-public class ImdbTop50Test extends Setup{
-	//ImdbTop50 imdb = new ImdbTop50();
+public class ImdbTop50Test extends Setup {
+	ImdbTop50 imdb = new ImdbTop50();
 		
-	  @Test
-		public void genericFlow(){
-//			imdb.navigateToHomePage();
+		@Test
+		public void getMovieListing(){
+			imdb.navigateToHomePage();
 //			imdb.clickOnWatchlist();
 //			imdb.clickOnTop250Link();
 //			imdb.storeValueinList();

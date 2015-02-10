@@ -23,38 +23,38 @@ import org.testng.annotations.Test;
 
 public class Setup {
 
-	public static WebDriver driver = null;
-	public static String sample = "";
+	 protected static WebDriver driver;
+	 
+	 
+	 
+	 @Parameters({"browserName"})
+	 @BeforeSuite
+	 public void openBrowser( String browserName)
+	 {
+	 System.out.println(browserName);
+	
+	 if (browserName.equals("Firefox"))
+	 {
+	 driver = new FirefoxDriver();
+	 }
+	 else
+	 if (browserName.equals("chrome"))
+	 {
+	 driver = new ChromeDriver();
+	 }
+	 else
+	 if (browserName == "safari")
+	 {
+	 driver = new SafariDriver();
+	 }
+	 }
 
-	// @BeforeSuite
-	// @Parameters({"browserName"})
-	// public void openBrowser( String browserName)
-	// {
-	// System.out.println(browserName);
-	//
-	// if (browserName.equals("Firefox"))
-	// {
-	// driver = new FirefoxDriver();
-	// }
-	// else
-	// if (browserName.equals("chrome"))
-	// {
-	// driver = new ChromeDriver();
-	// }
-	// else
-	// if (browserName == "safari")
-	// {
-	// driver = new SafariDriver();
-	// }
-	// }
-
-	@BeforeSuite
-	public void setup(){
-		driver = new FirefoxDriver();
-	}
+//	@BeforeSuite
+//	public void setup(){
+//		driver = new FirefoxDriver();
+//	}
 	
 	public void databaseInsert(HashMap<String, String> map) {
-		// HashMap<String,String> map1 = new HashMap<String, String>();
 
 		Connection c = null;
 		Statement stmt = null;
@@ -74,12 +74,12 @@ public class Setup {
 		// static int count =1;
 		try {
 			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:test5.db");
+			c = DriverManager.getConnection("jdbc:sqlite:imdbListing.db");
 			// c.setAutoCommit(false);
 			System.out.println("Opened database successfully " + c.toString());
 
 			stmt = c.createStatement();
-			String sql = "CREATE TABLE IF NOT EXISTS imdbRating5 "
+			String sql = "CREATE TABLE IF NOT EXISTS imdbtop250 "
 					+ "(ID INTEGER PRIMARY KEY AUTOINCREMENT,"
 					+ " TITLE           TEXT    NOT NULL,"
 					+ " RELEASE         TEXT    NOT NULL,"
@@ -87,11 +87,11 @@ public class Setup {
 
 			stmt.executeUpdate(sql);
 
-			System.out.println("INSERT INTO imdb (TITLE,RELEASE,RATING) "
-					+ "VALUES ('" + title + "','" + release + "','" + rating
-					+ "');");
+//			System.out.println("INSERT INTO imdb (TITLE,RELEASE,RATING) "
+//					+ "VALUES ('" + title + "','" + release + "','" + rating
+//					+ "');");
 
-			sql = "INSERT INTO imdbRating5 (TITLE,RELEASE,RATING) "
+			sql = "INSERT INTO imdbtop250 (TITLE,RELEASE,RATING) "
 					+ "VALUES ('" + title + "','" + release + "','" + rating
 					+ "');";
 
