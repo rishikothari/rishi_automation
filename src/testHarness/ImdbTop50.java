@@ -153,8 +153,15 @@ public class ImdbTop50 extends WrapperFunctions {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
-
-		// return outputMap;
-
+	}
+	
+	public void verifyHomePage(){
+		WrapperFunctions.verifyTrue(wrap.findWebElement(ObjectRepository.ImdbElements.homePageIdentifier , "id").isDisplayed(), "verify elements");		
+	}
+	public void verifyWatchlistPage(){
+		WrapperFunctions.verifyTrue(wrap.findWebElement(ObjectRepository.ImdbElements.watchlistPageidentier , "xpath").isDisplayed(), "verify elements");		
+	}
+	public void verifyTop250ListPage(){
+		WrapperFunctions.verifyTrue(wrap.findWebElement(ObjectRepository.ImdbElements.top250PageIdentifier , "xpath").isDisplayed(), "verify elements");		
 	}
 }

@@ -31,7 +31,11 @@ public class Setup {
 	 protected static WebDriver driver;
 	 
 	 
-//	 
+//*********************************************************************************************************
+//* Function Name: openBrowser																			  *	
+//* Use          : This function is used to open the browser											  *									 
+//* Author       : Rishikesh																			  *	
+//*********************************************************************************************************	 
 	 @Parameters({"browserName"})
 	 @BeforeSuite
 	 public void openBrowser( String browserName)
@@ -42,25 +46,14 @@ public class Setup {
 	 {
 	 driver = new FirefoxDriver();
 	 }
-	 else
-	 if (browserName.equals("chrome"))
-	 {
-		 System.setProperty("webdriver.chrome.driver", "/Users/RishikeshKotahri/Documents/workspace/imdb_top250");
-	 driver = new ChromeDriver();
-	 }
-	 else
-	 if (browserName.equals("safari"))
-	 {		 
-		 	
-			driver = new SafariDriver();
-	 }
 	 }
 
-//	@BeforeSuite
-//	public void setup(){
-//		driver = new FirefoxDriver();
-//	}
-//	
+	//*********************************************************************************************************
+	//* Function Name: databaaseInsert																		  *	
+	//* Use          : This function is insert values into the sqlite3 db									  *									 
+	//* Author       : Rishikesh																			  *	
+	//*********************************************************************************************************	 
+
 	public void databaseInsert(HashMap<String, String> map) {
 
 		Connection c = null;
@@ -94,10 +87,6 @@ public class Setup {
 
 			stmt.executeUpdate(sql);
 
-//			System.out.println("INSERT INTO imdb (TITLE,RELEASE,RATING) "
-//					+ "VALUES ('" + title + "','" + release + "','" + rating
-//					+ "');");
-
 			sql = "INSERT INTO imdbtop250 (TITLE,RELEASE,RATING) "
 					+ "VALUES ('" + title + "','" + release + "','" + rating
 					+ "');";
@@ -113,7 +102,12 @@ public class Setup {
 		}
 		System.out.println("Table created successfully");
 	}
-
+	
+	//*********************************************************************************************************
+	//* Function Name: closeBrowser																			  *	
+	//* Use          : This function is used to close the browser											  *									 
+	//* Author       : Rishikesh																			  *	
+	//*********************************************************************************************************	 
 	 @AfterSuite
 	 public void closeBrowser()
 	 {
