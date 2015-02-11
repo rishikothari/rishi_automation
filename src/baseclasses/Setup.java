@@ -28,31 +28,28 @@ import org.testng.annotations.Test;
 
 public class Setup {
 
-	 protected static WebDriver driver;
-	 
-	 
-//*********************************************************************************************************
-//* Function Name: openBrowser																			  *	
-//* Use          : This function is used to open the browser											  *									 
-//* Author       : Rishikesh																			  *	
-//*********************************************************************************************************	 
-	 @Parameters({"browserName"})
-	 @BeforeSuite
-	 public void openBrowser( String browserName)
-	 {
-	 System.out.println(browserName);
-	
-	 if (browserName.equals("Firefox"))
-	 {
-	 driver = new FirefoxDriver();
-	 }
-	 }
+	protected static WebDriver driver;
 
-	//*********************************************************************************************************
-	//* Function Name: databaaseInsert																		  *	
-	//* Use          : This function is insert values into the sqlite3 db									  *									 
-	//* Author       : Rishikesh																			  *	
-	//*********************************************************************************************************	 
+	// *********************************************************************************************************
+	// * Function Name: openBrowser *
+	// * Use : This function is used to open the browser *
+	// * Author : Rishikesh *
+	// *********************************************************************************************************
+	@Parameters({ "browserName" })
+	@BeforeSuite
+	public void openBrowser(String browserName) {
+		System.out.println(browserName);
+
+		if (browserName.equals("Firefox")) {
+			driver = new FirefoxDriver();
+		}
+	}
+
+	// *********************************************************************************************************
+	// * Function Name: databaaseInsert *
+	// * Use : This function is insert values into the sqlite3 db *
+	// * Author : Rishikesh *
+	// *********************************************************************************************************
 
 	public void databaseInsert(HashMap<String, String> map) {
 
@@ -71,13 +68,10 @@ public class Setup {
 		if (rating.contains("'")) {
 			rating.replace("\'", "\'\'");
 		}
-		// static int count =1;
+
 		try {
 			Class.forName("org.sqlite.JDBC");
 			c = DriverManager.getConnection("jdbc:sqlite:imdbListing.db");
-			// c.setAutoCommit(false);
-			System.out.println("Opened database successfully " + c.toString());
-
 			stmt = c.createStatement();
 			String sql = "CREATE TABLE IF NOT EXISTS imdbtop250 "
 					+ "(ID INTEGER PRIMARY KEY AUTOINCREMENT,"
@@ -100,17 +94,15 @@ public class Setup {
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
 			System.exit(0);
 		}
-		System.out.println("Table created successfully");
 	}
-	
-	//*********************************************************************************************************
-	//* Function Name: closeBrowser																			  *	
-	//* Use          : This function is used to close the browser											  *									 
-	//* Author       : Rishikesh																			  *	
-	//*********************************************************************************************************	 
-	 @AfterSuite
-	 public void closeBrowser()
-	 {
-	 driver.quit();
-	 }
+
+	// *********************************************************************************************************
+	// * Function Name: closeBrowser *
+	// * Use : This function is used to close the browser *
+	// * Author : Rishikesh *
+	// *********************************************************************************************************
+	@AfterSuite
+	public void closeBrowser() {
+		driver.quit();
+	}
 }
