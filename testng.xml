@@ -4,7 +4,7 @@
 <parameter name="browserName" value="Firefox"></parameter>
   <test name="Test">
   	<packages>
-			<package name="functional_test" />
+			<package name="functionalTests" />
 	</packages>
   </test> <!-- Test -->
 </suite> <!-- Suite -->
