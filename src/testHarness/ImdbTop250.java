@@ -12,6 +12,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import objectRepository.ObjectRepository;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -21,7 +23,6 @@ import com.thoughtworks.selenium.Wait;
 
 import baseclasses.Setup;
 import baseclasses.WrapperFunctions;
-import ObjectRepository.ObjectRepository;
 
 public class ImdbTop250 extends WrapperFunctions {
 
@@ -170,21 +171,17 @@ public class ImdbTop250 extends WrapperFunctions {
 
 		try {
 			Class.forName("org.sqlite.JDBC");
-			c = DriverManager.getConnection("jdbc:sqlite:test4.db");
+			c = DriverManager.getConnection("jdbc:sqlite:imdbListing.db");
 			System.out.println("Opened database successfully " + c.toString());
 
 			stmt = c.createStatement();
 
-			String sql = "Select * from imdbrating5;";
+			String sql = "Select * from imdbtop250;";
 
 			ResultSet rs = stmt.executeQuery(sql);
 
 			while (rs.next()) {
-
-				System.out.println("Name= " + rs.getString(1));
-				System.out.println("Name2= " + rs.getString(2));
-				System.out.println("Name3= " + rs.getString(3));
-				System.out.println("Name3= " + rs.getString(4));
+				System.out.println("Printing values in file:    PLEASE WAIT!");
 
 				String fileOutput = rs.getString(1) + "  " + rs.getString(2)
 						+ "  " + "  " + rs.getString(3) + "  "

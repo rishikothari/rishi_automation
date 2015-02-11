@@ -1,6 +1,6 @@
-package ObjectRepository;
+package objectRepository;
 
-import functional_test.ImdbTop250Test;
+import functionalTests.ImdbTop250Test;
 
 public class ObjectRepository {
 

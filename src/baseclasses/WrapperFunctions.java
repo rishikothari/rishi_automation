@@ -5,13 +5,15 @@
 package baseclasses;
 
 import java.util.concurrent.TimeUnit;
-import functional_test.ImdbTop250Test;
+
+import functionalTests.ImdbTop250Test;
+import objectRepository.ObjectRepository;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
-import ObjectRepository.ObjectRepository;
 
 public class WrapperFunctions extends Setup {
 

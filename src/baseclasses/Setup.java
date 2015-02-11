@@ -31,9 +31,9 @@ public class Setup {
 	protected static WebDriver driver;
 
 	// *********************************************************************************************************
-	// * Function Name: openBrowser *
-	// * Use : This function is used to open the browser *
-	// * Author : Rishikesh *
+	// * Function Name: openBrowser 																		   *
+	// * Use : This function is used to open the browser 													   *
+	// * Author : Rishikesh 																				   *
 	// *********************************************************************************************************
 	@Parameters({ "browserName" })
 	@BeforeSuite
@@ -46,9 +46,9 @@ public class Setup {
 	}
 
 	// *********************************************************************************************************
-	// * Function Name: databaaseInsert *
-	// * Use : This function is insert values into the sqlite3 db *
-	// * Author : Rishikesh *
+	// * Function Name: databaaseInsert 																	   *
+	// * Use : This function is insert values into the sqlite3 db       									   *
+	// * Author : Rishikesh 																				   *
 	// *********************************************************************************************************
 
 	public void databaseInsert(HashMap<String, String> map) {
